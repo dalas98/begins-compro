@@ -158,78 +158,8 @@
         </div>
         <div class="container">
             <div class="feature-items">
-                <div class="row">
+                <div class="row list-items">
                     <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Virtual Reality</h4>
-                           </div>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Augmented Reality</h4>
-                           </div>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Smart Language Class</h4>
-                           </div>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Smart Class</h4>
-                           </div>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Smart Monitoring</h4>
-                           </div>
-                        </div>
-                    </div>
-                    <!-- End Single Item -->
-                    <!-- Single Item -->
-                    <div class="single-item col-lg-4 col-md-6">
-                        <div class="item">
-                            <div class="icon">
-                               <i class="flaticon-website"></i>
-                           </div>
-                           <div class="info">
-                               <h4>Learning Management System</h4>
-                           </div>
-                        </div>
-                    </div>
                     <!-- End Single Item -->
                 </div>
             </div>
@@ -513,6 +443,32 @@
     <script src="assets/js/YTPlayer.min.js"></script>
     <script src="assets/js/bootsnav.js"></script>
     <script src="assets/js/main.js"></script>
-
+    <script>
+        $.ajax({
+            type: 'POST',
+            url: "https://graphcms-integrator.herokuapp.com/get-response",
+            data: { url:"https://api-ap-northeast-1.graphcms.com/v2/cl54uvezq393x01up9pbj2kz9/master", query: "{\nfeatures {\ntitle\ncontent\nimage {\nurl\n}\n}\n}" },
+            success: function(result) {
+                var features = result.data.features
+                var html = ""
+                for (const item in features) {
+                    if (Object.hasOwnProperty.call(features, item)) {
+                        const data = features[item];
+                        html += `<div class="single-item col-lg-4 col-md-6">
+                        <div class="item">
+                            <div class="icon">
+                               <i class="flaticon-website"></i>
+                           </div>
+                           <div class="info">
+                               <h4>${data.title}</h4>
+                           </div>
+                        </div>
+                    </div>`
+                    }
+                }
+                $(".list-items").html(html)
+            }
+        });
+    </script>
 </body>
 </html>
